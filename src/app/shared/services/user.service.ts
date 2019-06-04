@@ -8,9 +8,9 @@ import * as bcrypt from 'bcryptjs';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const apiUrl = 'http://localhost:3000/users';
+// const apiUrl = 'http://localhost:3000/users';
 // const apiUrl = 'https://54.94.211.199:3000/users';
-
+const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com/users';
 @Injectable({
   providedIn: 'root'
 })

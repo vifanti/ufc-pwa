@@ -7,8 +7,9 @@ import { Lutador } from '../models/lutador';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const apiUrl = 'http://localhost:3000/lutador';
+// const apiUrl = 'http://localhost:3000/lutador';
 // const apiUrl = 'https://54.94.211.199:3000/lutador';
+const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com/lutador';
 
 @Injectable({
   providedIn: 'root'

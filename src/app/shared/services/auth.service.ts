@@ -5,8 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
-const apiUrl = 'http://localhost:3000/';
+// const apiUrl = 'http://localhost:3000';
 // const apiUrl = 'https://54.94.211.199:3000';
+const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com';
 @Injectable({
   providedIn: 'root'
 })
