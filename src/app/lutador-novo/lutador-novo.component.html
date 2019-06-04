@@ -1,0 +1,79 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Adicionar Novo Lutador'" [icon]="'fa-hand-rock-o'"></app-page-header>
+  
+  <form role="form" [formGroup]="formLutador" (ngSubmit)="addLutador(formLutador.value)">
+    
+    <div class="row">
+      
+      <div class="col-lg-6">
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Nome: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="nome" formControlName="nome">
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Sexo: </label>
+            <div class="col-lg-8">
+              <select class="form-control" name="sexo" formControlName="sexo">
+                <option value="" [hidden]="true" [selected]="true"></option>
+                <option value ='M'>Masculino</option>
+                <option value ='F'>Feminino</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Peso: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="peso" formControlName="peso">
+            </div>
+          </div>
+        </fieldset>
+        
+      </div>
+      
+      <div class="col-lg-6">
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Idade: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="idade" formControlName="idade">
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">País de Origem: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="paisOrigem" formControlName="paisOrigem">
+            </div>
+          </div>
+        </fieldset>
+        
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <button type="button" class="btn btn-lg btn-default col-lg-12" routerLink="/lutadores" [routerLinkActive]="['router-link-active']">Voltar</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="submit" [disabled]="!formLutador.valid" class="btn btn-lg btn-danger col-lg-12">Gravar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

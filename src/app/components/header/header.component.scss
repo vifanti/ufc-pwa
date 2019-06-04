@@ -1,0 +1,19 @@
+$topnav-background-color: #1a1a1a;
+:host {
+    .navbar {
+        background-color: $topnav-background-color;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+        .dropdown-menu-right {
+            right: 0;
+            left: auto !important; // Reset the default from `.dropdown-menu`
+          }
+    }
+}

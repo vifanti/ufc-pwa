@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg fixed-top">
+  <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+    <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+  </button>
+   <em class="fa fa-first-order fa-2x" style="color: white"></em>&nbsp;<a class="navbar-brand mr-auto" routerLink="/home">UFC </a>
+
+  <!-- Dropdown para quando existir um usuário logado -->
+  <ul *ngIf="user; else loggedOut" class="navbar-nav ml-auto">
+    <li class="nav-item dropdown" ngbDropdown>
+      <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+        <em class="fa fa-user"></em> {{ user.name }} <strong class="caret"></strong>
+      </a>
+      <div class="dropdown-menu-right" ngbDropdownMenu>
+        <a class="dropdown-item" href="javascript:void(0)"> <em class="fa fa-fw fa-user"></em> Profile </a>
+        <a class="dropdown-item" [routerLink]="['/home']" (click)="onLoggedout()"> <em class="fa fa-fw fa-power-off"></em> Log Out </a>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Droopdown quando não existir usuário logado -->
+  <ng-template class="ml-auto" #loggedOut>
+    <button
+      type="button"
+      routerLink="/login"
+      [routerLinkActive]="['router-link-active']"
+      class="btn btn-sm btn-outline-secondary"
+      style="width: 103px;"
+    >
+      Login
+    </button>
+    &nbsp;
+    <button
+      type="button"
+      routerLink="/signup"
+      [routerLinkActive]="['router-link-active']"
+      class="btn btn-sm btn-danger"
+      style="width: 103px;"
+    >
+      Registrar
+    </button>
+  </ng-template>
+</nav>

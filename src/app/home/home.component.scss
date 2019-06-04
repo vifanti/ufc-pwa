@@ -1,0 +1,29 @@
+@media screen and (min-width: 460px) {
+    img {
+        width: 90% !important;
+        height: 90% !important;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    img {
+        width: 50% !important;
+        height: 50% !important;
+    }
+}
+img {
+    width: 100%;
+    height: 100%;
+    margin-top: 2%;
+}
+p{
+    text-align: center;
+    margin-top: 5%
+}
+.corpo {
+    min-height: 83vh;
+}
+.footer {
+    height: 10px;
+    text-align: center;
+}

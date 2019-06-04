@@ -1,0 +1,45 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Usuários'" [icon]="'fa-users'"></app-page-header>
+
+  <div class="row">
+    <div class="col col-xl-12 col-lg-12">
+      <fieldset class="form-group">
+        <button type="button" routerLink="/user-new" [routerLinkActive]="['router-link-active']" class="btn btn-lg btn-danger col-lg-4">
+          Cadastrar Usuário
+        </button>
+      </fieldset>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+            <label>Nome Usuário</label>
+            <input class="form-control" #searchBox id="search-box" (input)="searchTerm(searchBox.value)" />
+          </fieldset>
+        </div>
+
+        <div class="card-body table-responsive">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                routerLink="/user-detail/{{ user._id }}"
+                [routerLinkActive]="['router-link-active']"
+                *ngFor="let user of dataSource"
+              >
+                <th scope="row">{{ user.name }}</th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.admin }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Lutadores'" [icon]="'fa-hand-rock-o'"></app-page-header>
+  
+  <div class="row">
+    <div class="col col-xl-12 col-lg-12"> 
+      
+      <fieldset class="form-group">
+        <button type="button" routerLink="/lutador-novo" [routerLinkActive]="['router-link-active']" class="btn btn-lg btn-danger col-lg-4">Cadastrar Lutador</button>
+      </fieldset>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+            <label>Nome Lutador</label>
+            <input class="form-control" #searchBox id="search-box" (input)="pesquisaTermo(searchBox.value, searchPeso.value)">
+          </fieldset>
+
+        </div>
+        
+        <div class="col-lg-6">
+          <fieldset class="form-group">
+            <label>Categoria de Peso</label>
+            <select class="form-control" #searchPeso id="search-peso" (change)="pesquisaTermo(searchBox.value, searchPeso.value)">
+              <option></option>
+              <option value = 'peso_palha'>Peso Palha</option>
+              <option value = 'peso_mosca'>Peso Mosca</option>
+              <option value = 'peso_galo'>Peso Galo</option>
+              <option value = 'peso_pena'>Peso Pena</option>
+              <option value = 'peso_leve'>Peso Leve</option>
+              <option value = 'peso_meio-medio'>Peso Meio-Médio</option>
+              <option value = 'peso_medio'>Peso Médio</option>
+              <option value = 'peso_meio-pesado'>Peso Meio-Pesado</option>
+              <option value = 'peso_pesado'>Peso Pesado</option>
+            </select>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="card-body table-responsive">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Sexo</th>
+              <th>Peso</th>
+              <th>Categoria de Peso</th>
+              <th>País de Origem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngSwitch]="lutador.sexo" routerLink="/lutador-detalhe/{{lutador._id}}" [routerLinkActive]="['router-link-active']" *ngFor="let lutador of dataSource">
+              <th scope="row">{{lutador.nome}}</th>
+              <td *ngSwitchCase="'M'">Masculino</td>
+              <td *ngSwitchCase="'F'">Feminino</td>
+              <td *ngSwitchDefault>-</td>
+              <td>{{lutador.peso}}</td>
+              <td>{{lutador.categoriaPeso}}</td>
+              <td>{{lutador.paisOrigem}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

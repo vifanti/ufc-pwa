@@ -1,0 +1,73 @@
+import { Component, OnInit } from '@angular/core';
+import { routerTransition } from '../router.animations';
+
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LutadorService } from '../shared/services/lutador.service';
+import { Lutador } from '../shared/models/lutador';
+import { CalculoCategoriaService } from '../shared/services/calculo-categoria.service';
+
+@Component({
+  selector: 'app-lutador-editar',
+  templateUrl: './lutador-editar.component.html',
+  styleUrls: ['./lutador-editar.component.scss'],
+  animations: [routerTransition()]
+})
+export class LutadorEditarComponent implements OnInit {
+  id: String = '';
+  nomeLutador;
+  formLutador = new FormGroup({
+    nomeLutador: new FormControl(''),
+    idadeLutador: new FormControl(''),
+    sexoLutador: new FormControl(''),
+    pesoLutador: new FormControl(''),
+    paisOrigemLutador: new FormControl('')
+  });
+
+  isLoadingResults = false;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private api: LutadorService,
+    private formBuilder: FormBuilder,
+    private calcula: CalculoCategoriaService
+    ) { }
+
+  ngOnInit() {
+    this.getLutador(this.route.snapshot.params['id']);
+    this.formLutador = this.formBuilder.group({
+      'nome' : [null, Validators.required],
+      'idade' : [null],
+      'sexo' : [null, Validators.required],
+      'peso' : [null, Validators.required],
+      'paisOrigem' : [null]
+    });
+  }
+
+  getLutador(id) {
+    this.api.getLutador(id).subscribe(data => {
+      this.id = data._id;
+      this.nomeLutador = data.nome;
+      this.formLutador.setValue({
+        nome: data.nome,
+        idade: data.idade,
+        sexo: data.sexo,
+        peso: data.peso,
+        paisOrigem: data.paisOrigem
+      });
+    });
+  }
+
+  updateLutador(form: Lutador) {
+    this.isLoadingResults = true;
+    this.api.updateLutador(this.id, form)
+      .subscribe(res => {
+          this.isLoadingResults = false;
+          this.router.navigate(['/lutador-detalhe/' + this.id]);
+        }, (err) => {
+          console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
+  }
+  }
