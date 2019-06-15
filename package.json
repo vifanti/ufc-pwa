@@ -4,14 +4,13 @@
   "license": "Apache",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve -o",
     "build": "ng build --prod",
     "gitbuild": "ng build --prod --base-href /start-angular/ufc/master/dist/",
     "test": "ng test",
     "test-ci": "TEST_CI=true ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
