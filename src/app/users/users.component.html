@@ -13,7 +13,7 @@
         <div class="col-lg-6">
           <fieldset class="form-group">
             <label>Nome Usuário</label>
-            <input class="form-control" #searchBox id="search-box" (input)="searchTerm(searchBox.value)" />
+            <input class="form-control" #searchBox id="search-box" autocomplete="off" (input)="searchTerm(searchBox.value)" />
           </fieldset>
         </div>
 
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
               <tr
-                routerLink="/user-detail/{{ user._id }}"
+                routerLink="/users-detalhe/{{ user._id }}"
                 [routerLinkActive]="['router-link-active']"
                 *ngFor="let user of dataSource"
               >

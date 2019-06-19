@@ -5,9 +5,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
-// const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost:3040';
 // const apiUrl = 'https://54.94.211.199:3000';
-const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com';
+// const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,9 @@ export class AuthService {
   @Output() screenPicker = new EventEmitter<string>();
 
   constructor(public jwtHelper: JwtHelperService, private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser'))
+    );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -26,7 +28,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('currentUser'));
 
     // Check whether the token is expired and return true or false
-    if (!user) {
+    if (!user.token) {
       return false;
     }
     return !this.jwtHelper.isTokenExpired(user.token);
@@ -37,22 +39,21 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const api = apiUrl + '/users/authenticate';
-    console.log(api);
-    return this.http.post<any>(api, { 'email': email, 'password': password }).pipe(
-      map(user => {
-        this.startSession(user);
-        return user;
+    const api = apiUrl + '/api/v2/authenticate';
+    return this.http.post<any>(api, { email: email, password: password }).pipe(
+      map(response => {
+        this.startSession(response.data);
+        return response.data;
       })
     );
   }
 
-  startSession(user) {
+  startSession(data) {
     // login successful if there's a jwt token in the response
-    if (user && user.token) {
+    if (data.user && data.user.token) {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
+      localStorage.setItem('currentUser', JSON.stringify(data.user));
+      this.currentUserSubject.next(data.user);
     }
   }
 

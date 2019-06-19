@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.api.getUsers().subscribe(
       res => {
-        this.dataSource = res;
+        this.dataSource = res.data.users;
         this.isLoadingResults = false;
       },
       err => {
@@ -52,7 +52,11 @@ export class UsersComponent implements OnInit {
       )
       .subscribe(
         res => {
-          this.dataSource = res;
+          if (res.data != null) {
+            this.dataSource = res.data.users;
+          } else {
+            this.dataSource = [];
+          }
           this.isLoadingResults = false;
         },
         err => {

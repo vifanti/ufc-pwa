@@ -4,41 +4,63 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import * as bcrypt from 'bcryptjs';
+import { AuthService } from './auth.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-// const apiUrl = 'http://localhost:3000/users';
+const apiUrl = 'http://localhost:3040/api/v2/users/';
 // const apiUrl = 'https://54.94.211.199:3000/users';
-const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com/users';
+// const apiUrl = 'https://ufc-fighter-manager-server.herokuapp.com/users';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return this.http
-      .get<User[]>(apiUrl + '?key=4ccc9336b467b9cf58051ea123493ef114eae029')
+  getUsers(): Observable<any> {
+    let userList: any;
+    userList = this.http
+      .get(apiUrl)
       .pipe(catchError(this.handleError('getUsers', [])));
+
+    if (userList) {
+      return userList;
+    } else {
+      userList = [];
+      return userList;
+    }
   }
 
-  searchUsers(termo: string): Observable<User[]> {
-    return this.http.get<User[]>(apiUrl + '/search?key=4ccc9336b467b9cf58051ea123493ef114eae029&name=' + termo).pipe(
-      catchError(this.handleError<User[]>('searchUsers', []))
-    );
+  getUser(_id: string): Observable<any> {
+    return this.http
+      .get(apiUrl + _id)
+      .pipe(catchError(this.handleError<User>('getLutador id= ' + _id)));
+  }
+
+  searchUsers(termo: string): Observable<any> {
+    return this.http
+      .get(
+        apiUrl +
+          'search?name=' +
+          termo
+      )
+      .pipe(catchError(this.handleError<User[]>('searchUsers', [])));
   }
 
   addUser(user: User): Observable<User> {
     const salt = bcrypt.genSaltSync(10);
     user.password = bcrypt.hashSync(user.password, salt);
-    return this.http.post<User>(apiUrl, user, httpOptions).pipe(catchError(this.handleError<User>('addUser')));
+    return this.http
+      .post<User>(apiUrl, user)
+      .pipe(catchError(this.handleError<User>('addUser')));
+  }
+
+  deleteUser(id: any) {
+    throw new Error('Method not implemented.');
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-
       return of(result as T);
     };
   }

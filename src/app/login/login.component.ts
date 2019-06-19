@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    error = '';
+    error;
     private routeSub: any;
 
     constructor(
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 this.router.navigate([this.returnUrl]);
             },
             error => {
-                this.error = error;
+                this.error = (error.error.message);
                 this.loading = false;
             }
        );

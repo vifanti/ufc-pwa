@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +30,8 @@ import { SignupComponent } from './signup/signup.component';
 import { UsersComponent } from './users/users.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CustomHttpInterceptor } from './shared/services/custom-http-interceptor.service';
+import { UsersDetalheComponent } from './users-detalhe/users-detalhe.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -68,9 +70,12 @@ export function tokenGetter() {
       LutadoresComponent,
       PesquisaAleatoriaComponent,
       SignupComponent,
-      UsersComponent
+      UsersComponent,
+      UsersDetalheComponent
     ],
-    providers: [AuthGuard],
+    providers: [AuthGuard,
+      {provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

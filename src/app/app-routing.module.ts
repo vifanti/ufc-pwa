@@ -13,6 +13,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HistoriaUfcComponent } from './historia-ufc/historia-ufc.component';
 import { DesenvolvedoresComponent } from './desenvolvedores/desenvolvedores.component';
 import { UsersComponent } from './users/users.component';
+import { UsersDetalheComponent } from './users-detalhe/users-detalhe.component';
 
 const routes: Routes = [
     // canActivate: [AuthGuard]
@@ -38,6 +39,7 @@ const routes: Routes = [
     { path: 'historia-ufc', component: HistoriaUfcComponent },
     { path: 'desenvolvedores', component: DesenvolvedoresComponent },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+    { path: 'users-detalhe/:id', component: UsersDetalheComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
