@@ -1,0 +1,60 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Adicionar Novo Usuário'" [icon]="'fa-hand-rock-o'"></app-page-header>
+  
+  <form role="form" [formGroup]="formUser" (ngSubmit)="addUser(formUser.value)">
+    
+    <div class="row">
+      
+      <div class="col-lg-6">
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Nome: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="name" formControlName="name">
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">Administrador: </label>
+            <div class="col-lg-8">
+              <select class="form-control" name="admin" formControlName="admin">
+                <option value="" [hidden]="true" [selected]="true"></option>
+                <option value = "true">Sim</option>
+                <option value = "false">Não</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      
+      <div class="col-lg-6">
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label">E-mail: </label>
+            <div class="col-lg-8">
+              <input class="form-control" name="email" formControlName="email">
+            </div>
+          </div>
+        </fieldset>
+        
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <button type="button" class="btn btn-lg btn-default col-lg-12" routerLink="/users" [routerLinkActive]="['router-link-active']">Voltar</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="submit" [disabled]="!formUser.valid" class="btn btn-lg btn-danger col-lg-12">Gravar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

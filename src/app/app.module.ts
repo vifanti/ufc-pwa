@@ -32,6 +32,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CustomHttpInterceptor } from './shared/services/custom-http-interceptor.service';
 import { UsersDetalheComponent } from './users-detalhe/users-detalhe.component';
+import { UsersNovoComponent } from './users-novo/users-novo.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -71,7 +72,8 @@ export function tokenGetter() {
       PesquisaAleatoriaComponent,
       SignupComponent,
       UsersComponent,
-      UsersDetalheComponent
+      UsersDetalheComponent,
+      UsersNovoComponent
     ],
     providers: [AuthGuard,
       {provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true}
